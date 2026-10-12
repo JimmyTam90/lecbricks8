@@ -58,23 +58,11 @@ function CollectionCard({ c }) {
 export default function Page() {
   return (
     <main>
-      {/* HEADER: Dynamic Logo Image with Text Fallback */}
+      {/* HEADER: Clean Branding */}
       <header style={{ borderBottom: '1px solid #1E293B', padding: '16px 24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: '#0F172A', position: 'sticky', top: 0, zIndex: 50 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
           <a href="/letbricks" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img 
-              src="/letbricks/logo.png" 
-              alt="Letbricks Logo" 
-              style={{ height: '36px', width: 'auto', objectFit: 'contain' }}
-              onError={(e) => {
-                e.target.style.display = 'none';
-                if (e.target.nextSibling) {
-                  e.target.nextSibling.style.display = 'block';
-                }
-              }}
-            />
-            <span style={{ display: 'none', fontSize: '22px', fontWeight: '800', letterSpacing: '-0.5px', color: '#FF6600' }}>
+            <span style={{ fontSize: '22px', fontWeight: '800', letterSpacing: '-0.5px', color: '#FF6600' }}>
               LETBRICKS<span style={{ color: '#F8FAFC' }}>.MOC</span>
             </span>
           </a>
