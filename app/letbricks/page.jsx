@@ -57,12 +57,12 @@ function CollectionCard({ c }) {
 export default function Page() {
   return (
     <main>
-      {/* HEADER: Fixed Flex Layout to prevent button overlapping */}
+      {/* HEADER: Fixed Flex Layout with clean brand title */}
       <header style={{ borderBottom: '1px solid #1E293B', padding: '16px 24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: '#0F172A', position: 'sticky', top: 0, zIndex: 50 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
           <a href="/letbricks" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
             <span style={{ fontSize: '20px', fontWeight: '800', letterSpacing: '-0.5px', color: '#FF6600' }}>
-              LETBRICKS<span style={{ color: '#F8FAFC' }}>.MOC</span>
+              LETBRICKS
             </span>
           </a>
         </div>
@@ -99,14 +99,31 @@ export default function Page() {
                 <strong>{hero.name}</strong>
                 <span className="lb-meta">{hero.pieces} · by {hero.designer} · listed at {formatPrice(hero)}</span>
               </div>
-              <AffiliateLink href={hero.affiliateUrl} label={hero.name} placement="hero">Shop the SR-71 Blackbird</AffiliateLink>
+              <a 
+                href={hero.affiliateUrl} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                style={{ 
+                  display: 'block', 
+                  backgroundColor: '#FF6600', 
+                  color: '#FFFFFF', 
+                  textAlign: 'center', 
+                  padding: '12px 20px', 
+                  borderRadius: '8px', 
+                  fontWeight: '700', 
+                  textDecoration: 'none',
+                  marginTop: '12px'
+                }}
+              >
+                Shop the SR-71 Blackbird →
+              </a>
               <AffiliateLink href={DEFAULT_AFFILIATE_URL} label="Letbricks home" placement="hero-secondary" variant="ghost">Browse everything at Letbricks</AffiliateLink>
             </div>
           </div>
         </div>
       </section>
 
-      {/* COLLECTIONS SECTION (Using mapped deep links) */}
+      {/* COLLECTIONS SECTION */}
       <section id="collections" className="lb-sec">
         <div className="lb-wrap">
           <h2 className="lb-h2">Start with a collection</h2>
