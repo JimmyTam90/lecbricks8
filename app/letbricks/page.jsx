@@ -11,7 +11,6 @@ const faqs = [
   ['Who runs this page?', 'PrimeGearLab is an independent affiliate publisher, not the merchant. We may earn a commission from qualifying purchases at no extra cost to you. Orders, payments and support are handled by Letbricks.'],
 ];
 
-/* Image block first, details, then the CTA block. No overlays, no absolute CTA. */
 function ProductCard({ p }) {
   return (
     <article className="lb-card">
@@ -58,21 +57,23 @@ function CollectionCard({ c }) {
 export default function Page() {
   return (
     <main>
-      {/* HEADER: Clean Branding */}
+      {/* HEADER: Fixed Flex Layout to prevent button overlapping */}
       <header style={{ borderBottom: '1px solid #1E293B', padding: '16px 24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: '#0F172A', position: 'sticky', top: 0, zIndex: 50 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
           <a href="/letbricks" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
-            <span style={{ fontSize: '22px', fontWeight: '800', letterSpacing: '-0.5px', color: '#FF6600' }}>
+            <span style={{ fontSize: '20px', fontWeight: '800', letterSpacing: '-0.5px', color: '#FF6600' }}>
               LETBRICKS<span style={{ color: '#F8FAFC' }}>.MOC</span>
             </span>
           </a>
         </div>
-        <AffiliateLink href={DEFAULT_AFFILIATE_URL} label="Letbricks Store" placement="header-cta">
-          Shop Official Store →
-        </AffiliateLink>
+        <div>
+          <AffiliateLink href={DEFAULT_AFFILIATE_URL} label="Letbricks Store" placement="header-cta">
+            Shop Official Store →
+          </AffiliateLink>
+        </div>
       </header>
 
-      {/* HERO: text, then image, then CTA */}
+      {/* HERO SECTION */}
       <section className="lb-hero">
         <div className="lb-wrap lb-hero-grid">
           <div>
@@ -105,6 +106,7 @@ export default function Page() {
         </div>
       </section>
 
+      {/* COLLECTIONS SECTION (Using mapped deep links) */}
       <section id="collections" className="lb-sec">
         <div className="lb-wrap">
           <h2 className="lb-h2">Start with a collection</h2>
@@ -115,6 +117,7 @@ export default function Page() {
         </div>
       </section>
 
+      {/* FEATURED SETS */}
       <section id="featured" className="lb-sec lb-alt">
         <div className="lb-wrap">
           <h2 className="lb-h2">Featured sets</h2>
@@ -125,6 +128,7 @@ export default function Page() {
         </div>
       </section>
 
+      {/* SUITABLE FOR */}
       <section className="lb-sec">
         <div className="lb-wrap">
           <h2 className="lb-h2">Who these sets suit</h2>
@@ -136,6 +140,7 @@ export default function Page() {
         </div>
       </section>
 
+      {/* SHIPPING INFO */}
       <section id="shipping" className="lb-sec lb-alt">
         <div className="lb-wrap">
           <h2 className="lb-h2">Know before you order</h2>
@@ -148,6 +153,7 @@ export default function Page() {
         </div>
       </section>
 
+      {/* FAQ */}
       <section id="faq" className="lb-sec">
         <div className="lb-wrap" style={{ maxWidth: 760 }}>
           <h2 className="lb-h2">Questions before you buy</h2>
@@ -162,6 +168,7 @@ export default function Page() {
         </div>
       </section>
 
+      {/* FOOTER CTA */}
       <section className="lb-sec lb-final">
         <div className="lb-wrap">
           <h2 className="lb-h2">Pick your next build</h2>
