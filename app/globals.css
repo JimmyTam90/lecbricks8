@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html { scroll-behavior: smooth; }
+body { @apply bg-white text-ink font-sans antialiased; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+/* Brick-stud grid: the one decorative motif on the page (hero + footer band). */
+.studs {
+  background-color: #111111;
+  background-image: radial-gradient(circle at center, #FF6600 0 5px, transparent 5.5px);
+  background-size: 28px 28px;
+}
+.studs-soft {
+  background-image: radial-gradient(circle at center, rgba(255,102,0,.16) 0 5px, transparent 5.5px);
+  background-size: 28px 28px;
+}
+:focus-visible { outline: 3px solid #FF6600; outline-offset: 2px; }
+details > summary { list-style: none; }
+details > summary::-webkit-details-marker { display: none; }
