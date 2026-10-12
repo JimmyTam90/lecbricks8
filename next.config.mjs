@@ -1,30 +1,21 @@
 /**
- * HUB_SPOKE_PROXY design
- * - Pages live physically under app/letbricks/*, so the Spoke already serves /letbricks/*.
- *   => NO basePath (it would produce /letbricks/letbricks/...).
- * - The Hub rewrites /letbricks and /letbricks/:path* to this Spoke. Next.js static assets
- *   (/_next/static/*) are NOT under /letbricks, so they must load straight from the Spoke origin
- *   via assetPrefix. Otherwise they would hit the Hub domain and 404 (or collide with other spokes).
- * - Remote images are served as-is (unoptimized) because /_next/image would also resolve on the Hub.
+ * Asset origin for /_next/static/* (JS chunks).
+ * - Direct deployment (e.g. lecbricks8.vercel.app/letbricks): Vercel's own production hostname is used
+ *   automatically, so assets can never point at a different/nonexistent project.
+ * - Behind the Hub (primegearlab.com/letbricks): the same origin is used, so chunks load from the Spoke.
+ * - Override with NEXT_PUBLIC_ASSET_PREFIX (full origin, no trailing slash) if needed.
+ * Styling does NOT depend on this: all CSS is embedded in the HTML (see lib/css.js).
  */
-const SPOKE_ORIGIN = process.env.NEXT_PUBLIC_ASSET_PREFIX || 'https://letbricks7.vercel.app';
+const auto = process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : undefined;
+const assetPrefix = process.env.NEXT_PUBLIC_ASSET_PREFIX || auto;
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  assetPrefix: SPOKE_ORIGIN,
-  images: {
-    unoptimized: true,
-    remotePatterns: [{ protocol: 'https', hostname: 'www.letbricks.com', pathname: '/wp-content/uploads/**' }],
-  },
+  ...(assetPrefix ? { assetPrefix } : {}),
+  images: { unoptimized: true },
   async headers() {
-    return [
-      {
-        // Allow the Hub origin to load fonts/chunks from the Spoke origin.
-        source: '/_next/static/:path*',
-        headers: [{ key: 'Access-Control-Allow-Origin', value: '*' }],
-      },
-    ];
+    return [{ source: '/_next/static/:path*', headers: [{ key: 'Access-Control-Allow-Origin', value: '*' }] }];
   },
 };
 

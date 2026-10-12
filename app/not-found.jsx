@@ -1,13 +1,11 @@
-import Link from 'next/link';
-
 export default function NotFound() {
   return (
-    <main className="mx-auto max-w-xl px-4 py-24 text-center">
-      <h1 className="text-3xl font-extrabold">Page not found</h1>
-      <p className="mt-3 text-neutral-600">That page does not exist. Head back to the Letbricks guide.</p>
-      <Link href="/letbricks" className="mt-6 inline-flex min-h-11 items-center rounded-lg bg-brick px-6 font-bold text-ink">
+    <main style={{ maxWidth: 560, margin: '0 auto', padding: '96px 16px', textAlign: 'center', fontFamily: 'Arial, sans-serif', color: '#F8FAFC' }}>
+      <h1 style={{ fontSize: 30, margin: 0 }}>Page not found</h1>
+      <p style={{ color: '#CBD5E1' }}>That page does not exist.</p>
+      <a href="/letbricks" style={{ display: 'inline-block', marginTop: 16, padding: '12px 24px', borderRadius: 10, background: '#FF6600', color: '#0B0F17', fontWeight: 800, textDecoration: 'none' }}>
         Back to the guide
-      </Link>
+      </a>
     </main>
   );
 }

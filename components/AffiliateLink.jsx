@@ -1,37 +1,24 @@
 'use client';
 
-/**
- * Native <a> so navigation is never blocked. Analytics fire in the click handler using
- * non-blocking beacon transport; if a service is not configured it is silently skipped.
- * A click event is NOT proof that the merchant attributed the visit or sale.
- */
-export default function AffiliateLink({ href, label, placement, className = '', children }) {
+/** Native <a>: works with or without JS. Tracking is non-blocking and optional. */
+export default function AffiliateLink({ href, label, placement, variant, auto, children }) {
   function track() {
     try {
       const params = { link_label: label, placement, destination: href, transport_type: 'beacon' };
       if (typeof window.gtag === 'function') {
         window.gtag('event', 'affiliate_click', params);
-        const adsId = process.env.NEXT_PUBLIC_GOOGLE_ADS_ID;
-        const adsLabel = process.env.NEXT_PUBLIC_GOOGLE_ADS_CLICK_LABEL;
-        if (adsId && adsLabel) window.gtag('event', 'conversion', { send_to: `${adsId}/${adsLabel}` });
+        const id = process.env.NEXT_PUBLIC_GOOGLE_ADS_ID;
+        const lbl = process.env.NEXT_PUBLIC_GOOGLE_ADS_CLICK_LABEL;
+        if (id && lbl) window.gtag('event', 'conversion', { send_to: `${id}/${lbl}` });
       }
-      if (typeof window.fbq === 'function') {
-        window.fbq('trackCustom', 'AffiliateClick', { label, placement });
-      }
+      if (typeof window.fbq === 'function') window.fbq('trackCustom', 'AffiliateClick', { label, placement });
     } catch {
       /* never block navigation */
     }
   }
-
+  const cls = ['lb-btn', variant === 'ghost' ? 'ghost' : '', auto ? 'auto' : ''].join(' ').trim();
   return (
-    <a
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer sponsored"
-      onClick={track}
-      data-placement={placement}
-      className={`inline-flex min-h-11 items-center justify-center rounded-lg px-6 py-3 text-center text-base font-bold transition-colors ${className}`}
-    >
+    <a href={href} target="_blank" rel="noopener noreferrer sponsored" onClick={track} data-placement={placement} className={cls}>
       {children}
     </a>
   );

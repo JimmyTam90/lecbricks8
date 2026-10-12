@@ -4,8 +4,9 @@ Public URL: https://primegearlab.com/letbricks | Spoke origin: https://letbricks
 
 ## Architecture
 - Pages live in `app/letbricks/*`; no `basePath`.
-- `assetPrefix` = Spoke origin so `/_next/static/*` loads from the Spoke, not the Hub.
-- Images are `unoptimized` (`/_next/image` would not resolve on the Hub). `public/letbricks/logo.png` is served at `/letbricks/logo.png` through the Hub rewrite.
+- `assetPrefix` defaults to Vercel's own production hostname (`VERCEL_PROJECT_PRODUCTION_URL`), or `NEXT_PUBLIC_ASSET_PREFIX` if set. It is never hard-coded, so JS chunks can't point at the wrong project.
+- All CSS is embedded in the HTML (`lib/css.js` rendered as a <style> tag). No Tailwind, no stylesheet file.
+- Images are plain <img> tags. `public/letbricks/logo.png` is served at `/letbricks/logo.png` through the Hub rewrite.
 - Hub: merge the rewrites in `hub-vercel.json` into the Hub project's `vercel.json`, before any catch-all rewrite.
 
 ## Deploy
